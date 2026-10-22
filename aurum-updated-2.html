@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURUM — Premium Fitness | Designed by Ahmed Atallah</title>
+  <meta name="author" content="Ahmed Atallah">
+  <meta name="description" content="Premium gym website demo designed by Ahmed Atallah - Portfolio project">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              400: '#E8C872',
+              500: '#D4AF37',
+              600: '#B8962E',
+            },
+            dark: {
+              900: '#0A0A0A',
+              800: '#111111',
+              700: '#1A1A1A',
+              600: '#222222',
+            }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #0A0A0A; }
+    .gold-gradient {
+      background: linear-gradient(135deg, #D4AF37 0%, #F5E6A3 50%, #D4AF37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #D4AF37, #B8962E);
+      transition: all 0.3s ease;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
+    }
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+    .nav-blur {
+      backdrop-filter: blur(16px);
+      background: rgba(10, 10, 10, 0.85);
+    }
+    .hero-overlay {
+      background: linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.95) 100%);
+    }
+    .section-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="font-sans text-white antialiased">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#home" class="font-display text-2xl tracking-widest gold-gradient font-semibold">AURUM</a>
+      
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-10 text-sm font-medium tracking-wide">
+        <a href="#about" class="text-white/70 hover:text-gold-500 transition">About</a>
+        <a href="#programs" class="text-white/70 hover:text-gold-500 transition">Programs</a>
+        <a href="#coaches" class="text-white/70 hover:text-gold-500 transition">Coaches</a>
+        <a href="#membership" class="text-white/70 hover:text-gold-500 transition">Membership</a>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <a href="#membership" class="btn-gold text-dark-900 text-sm font-semibold px-6 py-2.5 rounded-full tracking-wide hidden sm:inline-block">
+          Join Now
+        </a>
+        <!-- Mobile Menu Button -->
+        <button id="menu-btn" class="md:hidden text-white p-2" aria-label="Toggle menu">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark-900/98 border-t border-white/5">
+      <div class="px-6 py-4 flex flex-col gap-4 text-sm font-medium">
+        <a href="#about" class="text-white/70 hover:text-gold-500 transition py-2 mobile-link">About</a>
+        <a href="#programs" class="text-white/70 hover:text-gold-500 transition py-2 mobile-link">Programs</a>
+        <a href="#coaches" class="text-white/70 hover:text-gold-500 transition py-2 mobile-link">Coaches</a>
+        <a href="#membership" class="text-white/70 hover:text-gold-500 transition py-2 mobile-link">Membership</a>
+        <a href="#membership" class="btn-gold text-dark-900 text-center font-semibold px-6 py-3 rounded-full tracking-wide mt-2">
+          Join Now
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== 1. HERO ========== -->
+  <section id="home" class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+    <img 
+      src="https://images.unsplash.com/photo-1778828494354-9b717d36dc99?auto=format&fit=crop&w=1920&q=80" 
+      alt="AURUM Gym" 
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 hero-overlay"></div>
+    
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <p class="text-gold-500 tracking-[0.35em] text-sm font-medium mb-6 uppercase">Premium Performance Club</p>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold leading-tight mb-6">
+        Forge Your<br>
+        <span class="gold-gradient">Legacy</span>
+      </h1>
+      <p class="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        Where elite training meets uncompromising luxury. Transform your body, elevate your mind, and redefine your limits.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#membership" class="btn-gold text-dark-900 font-semibold px-10 py-4 rounded-full text-base tracking-wide">
+          Start Your Journey
+        </a>
+        <a href="#programs" class="border border-white/30 hover:border-gold-500 text-white font-medium px-10 py-4 rounded-full text-base tracking-wide transition">
+          Explore Programs
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+      <span class="text-xs tracking-widest uppercase">Scroll</span>
+      <div class="w-px h-12 bg-gradient-to-b from-gold-500 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ========== 2. ABOUT ========== -->
+  <section id="about" class="py-24 md:py-32 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="section-fade">
+          <p class="text-gold-500 tracking-[0.3em] text-sm font-medium mb-4 uppercase">About AURUM</p>
+          <h2 class="font-display text-4xl md:text-5xl font-semibold mb-6 leading-tight">
+            More Than a Gym.<br>
+            <span class="gold-gradient">A Standard.</span>
+          </h2>
+          <p class="text-white/60 text-lg leading-relaxed mb-8">
+            AURUM was built for those who refuse mediocrity. Our private training environment combines world-class equipment, elite coaching, and an atmosphere of focused excellence. Every detail is designed to help you perform at your highest level.
+          </p>
+          <div class="grid grid-cols-3 gap-8">
+            <div>
+              <p class="font-display text-3xl md:text-4xl text-gold-500 font-semibold">12+</p>
+              <p class="text-white/50 text-sm mt-1">Years of Excellence</p>
+            </div>
+            <div>
+              <p class="font-display text-3xl md:text-4xl text-gold-500 font-semibold">850+</p>
+              <p class="text-white/50 text-sm mt-1">Active Members</p>
+            </div>
+            <div>
+              <p class="font-display text-3xl md:text-4xl text-gold-500 font-semibold">28</p>
+              <p class="text-white/50 text-sm mt-1">Elite Coaches</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative section-fade">
+          <div class="absolute -inset-4 border border-gold-500/20 rounded-2xl"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=900&q=80" 
+            alt="Training at AURUM" 
+            class="relative rounded-2xl w-full h-[480px] object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 3. PROGRAMS ========== -->
+  <section id="programs" class="py-24 md:py-32 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 section-fade">
+        <p class="text-gold-500 tracking-[0.3em] text-sm font-medium mb-4 uppercase">Our Programs</p>
+        <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4">
+          Train With <span class="gold-gradient">Purpose</span>
+        </h2>
+        <p class="text-white/50 max-w-xl mx-auto">
+          Structured programs designed by elite coaches to deliver measurable results.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Program 1 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl overflow-hidden section-fade">
+          <div class="h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80" alt="Strength Training" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-semibold mb-2">Strength & Power</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-5">
+              Progressive overload programming focused on building maximal strength and athletic power.
+            </p>
+            <span class="text-gold-500 text-xs tracking-widest uppercase font-medium">45–60 min sessions</span>
+          </div>
+        </div>
+
+        <!-- Program 2 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl overflow-hidden section-fade">
+          <div class="h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=600&q=80" alt="HIIT" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-semibold mb-2">HIIT Conditioning</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-5">
+              High-intensity interval training engineered to maximize fat loss and cardiovascular capacity.
+            </p>
+            <span class="text-gold-500 text-xs tracking-widest uppercase font-medium">30–40 min sessions</span>
+          </div>
+        </div>
+
+        <!-- Program 3 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl overflow-hidden section-fade">
+          <div class="h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=600&q=80" alt="Mobility" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-semibold mb-2">Mobility & Recovery</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-5">
+              Dedicated sessions for flexibility, joint health, and accelerated recovery between hard training days.
+            </p>
+            <span class="text-gold-500 text-xs tracking-widest uppercase font-medium">40–50 min sessions</span>
+          </div>
+        </div>
+
+        <!-- Program 4 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl overflow-hidden section-fade">
+          <div class="h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="Personal Training" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-semibold mb-2">1:1 Elite Coaching</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-5">
+              Fully customized programming and accountability with a dedicated performance coach.
+            </p>
+            <span class="text-gold-500 text-xs tracking-widest uppercase font-medium">Private sessions</span>
+          </div>
+        </div>
+
+        <!-- Program 5 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl overflow-hidden section-fade">
+          <div class="h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=600&q=80" alt="Athletic Performance" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-semibold mb-2">Athletic Performance</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-5">
+              Sport-specific training for speed, agility, power, and injury resilience.
+            </p>
+            <span class="text-gold-500 text-xs tracking-widest uppercase font-medium">Performance focused</span>
+          </div>
+        </div>
+
+        <!-- Program 6 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl overflow-hidden section-fade">
+          <div class="h-52 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80" alt="Group Training" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-semibold mb-2">Small Group Training</h3>
+            <p class="text-white/50 text-sm leading-relaxed mb-5">
+              High-energy sessions in groups of 6 or fewer for maximum attention and motivation.
+            </p>
+            <span class="text-gold-500 text-xs tracking-widest uppercase font-medium">Limited spots</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. COACHES ========== -->
+  <section id="coaches" class="py-24 md:py-32 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 section-fade">
+        <p class="text-gold-500 tracking-[0.3em] text-sm font-medium mb-4 uppercase">The Team</p>
+        <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4">
+          Elite <span class="gold-gradient">Coaches</span>
+        </h2>
+        <p class="text-white/50 max-w-xl mx-auto">
+          Certified professionals with proven track records in high-performance training.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Coach 1 -->
+        <div class="group section-fade">
+          <div class="relative overflow-hidden rounded-2xl mb-5">
+            <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=500&q=80" alt="Coach Marcus" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent to-transparent"></div>
+            <div class="absolute bottom-5 left-5 right-5">
+              <h3 class="font-display text-xl font-semibold">Marcus Hale</h3>
+              <p class="text-gold-500 text-sm">Head of Strength</p>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm leading-relaxed px-1">
+            12 years coaching elite athletes. Former competitive powerlifter.
+          </p>
+        </div>
+
+        <!-- Coach 2 -->
+        <div class="group section-fade">
+          <div class="relative overflow-hidden rounded-2xl mb-5">
+            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=500&q=80" alt="Coach Omar" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent to-transparent"></div>
+            <div class="absolute bottom-5 left-5 right-5">
+              <h3 class="font-display text-xl font-semibold">Omar Farid</h3>
+              <p class="text-gold-500 text-sm">Performance Coach</p>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm leading-relaxed px-1">
+            Specializes in athletic development and injury prevention systems.
+          </p>
+        </div>
+
+        <!-- Coach 3 -->
+        <div class="group section-fade">
+          <div class="relative overflow-hidden rounded-2xl mb-5">
+            <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=500&q=80" alt="Coach Julian" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent to-transparent"></div>
+            <div class="absolute bottom-5 left-5 right-5">
+              <h3 class="font-display text-xl font-semibold">Julian Crowe</h3>
+              <p class="text-gold-500 text-sm">HIIT & Conditioning</p>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm leading-relaxed px-1">
+            Expert in metabolic conditioning and body recomposition protocols.
+          </p>
+        </div>
+
+        <!-- Coach 4 -->
+        <div class="group section-fade">
+          <div class="relative overflow-hidden rounded-2xl mb-5">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=500&q=80" alt="Coach Yusuf" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent to-transparent"></div>
+            <div class="absolute bottom-5 left-5 right-5">
+              <h3 class="font-display text-xl font-semibold">Yusuf Karim</h3>
+              <p class="text-gold-500 text-sm">Mobility Specialist</p>
+            </div>
+          </div>
+          <p class="text-white/50 text-sm leading-relaxed px-1">
+            Certified in advanced mobility and recovery methodologies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. MEMBERSHIP & CONTACT ========== -->
+  <section id="membership" class="py-24 md:py-32 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 section-fade">
+        <p class="text-gold-500 tracking-[0.3em] text-sm font-medium mb-4 uppercase">Membership</p>
+        <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4">
+          Choose Your <span class="gold-gradient">Level</span>
+        </h2>
+        <p class="text-white/50 max-w-xl mx-auto">
+          Transparent pricing. No hidden fees. Cancel anytime.
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid md:grid-cols-3 gap-6 mb-24">
+        <!-- Plan 1 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl p-8 section-fade">
+          <p class="text-white/50 text-sm tracking-widest uppercase mb-2">Foundation</p>
+          <h3 class="font-display text-3xl font-semibold mb-1">$89<span class="text-lg text-white/40 font-sans">/mo</span></h3>
+          <p class="text-white/40 text-sm mb-8">Perfect for getting started</p>
+          <ul class="space-y-3 mb-10 text-sm text-white/70">
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Full gym access</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Group classes</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Locker & amenities</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> App programming</li>
+          </ul>
+          <a href="#contact" class="block text-center border border-white/20 hover:border-gold-500 py-3.5 rounded-full text-sm font-medium transition">
+            Select Plan
+          </a>
+        </div>
+
+        <!-- Plan 2 - Featured -->
+        <div class="card-hover bg-dark-700 border-2 border-gold-500/50 rounded-2xl p-8 relative section-fade">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gold-500 text-dark-900 text-xs font-semibold px-4 py-1 rounded-full tracking-wide">
+            MOST POPULAR
+          </div>
+          <p class="text-gold-500 text-sm tracking-widest uppercase mb-2">Performance</p>
+          <h3 class="font-display text-3xl font-semibold mb-1">$149<span class="text-lg text-white/40 font-sans">/mo</span></h3>
+          <p class="text-white/40 text-sm mb-8">For serious results</p>
+          <ul class="space-y-3 mb-10 text-sm text-white/70">
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Everything in Foundation</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> 4 private sessions / month</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Nutrition guidance</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Priority class booking</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Recovery zone access</li>
+          </ul>
+          <a href="#contact" class="btn-gold block text-center text-dark-900 py-3.5 rounded-full text-sm font-semibold">
+            Select Plan
+          </a>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="card-hover bg-dark-700 border border-white/5 rounded-2xl p-8 section-fade">
+          <p class="text-white/50 text-sm tracking-widest uppercase mb-2">Elite</p>
+          <h3 class="font-display text-3xl font-semibold mb-1">$299<span class="text-lg text-white/40 font-sans">/mo</span></h3>
+          <p class="text-white/40 text-sm mb-8">Unlimited everything</p>
+          <ul class="space-y-3 mb-10 text-sm text-white/70">
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Unlimited private coaching</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Custom programming</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Full recovery suite</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> Guest privileges</li>
+            <li class="flex items-center gap-3"><span class="text-gold-500">✓</span> 24/7 exclusive access</li>
+          </ul>
+          <a href="#contact" class="block text-center border border-white/20 hover:border-gold-500 py-3.5 rounded-full text-sm font-medium transition">
+            Select Plan
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div id="contact" class="grid lg:grid-cols-2 gap-12 items-start section-fade">
+        <div>
+          <p class="text-gold-500 tracking-[0.3em] text-sm font-medium mb-4 uppercase">Contact</p>
+          <h3 class="font-display text-3xl md:text-4xl font-semibold mb-6">Ready to Begin?</h3>
+          <p class="text-white/50 mb-8 leading-relaxed">
+            Book a complimentary consultation and facility tour. Our team will design a path tailored to your goals.
+          </p>
+          <div class="space-y-4 text-sm">
+            <div class="flex items-start gap-4">
+              <span class="text-gold-500 mt-0.5">📍</span>
+              <div>
+                <p class="font-medium">Location</p>
+                <p class="text-white/50">12 Elite Boulevard, Downtown District</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-gold-500 mt-0.5">📞</span>
+              <div>
+                <p class="font-medium">Phone</p>
+                <p class="text-white/50"><a href="tel:+201158454153" class="hover:text-gold-500 transition">01158454153</a></p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-gold-500 mt-0.5">✉️</span>
+              <div>
+                <p class="font-medium">Email</p>
+                <p class="text-white/50">hello@aurum.fitness</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-gold-500 mt-0.5">🕐</span>
+              <div>
+                <p class="font-medium">Hours</p>
+                <p class="text-white/50">Mon–Fri 5:30 AM – 11:00 PM<br>Sat–Sun 7:00 AM – 9:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="contact-form" class="bg-dark-700 border border-white/5 rounded-2xl p-8 space-y-5">
+          <div>
+            <label class="block text-sm text-white/60 mb-2">Full Name</label>
+            <input type="text" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition" placeholder="Your name">
+          </div>
+          <div>
+            <label class="block text-sm text-white/60 mb-2">Email</label>
+            <input type="email" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition" placeholder="you@email.com">
+          </div>
+          <div>
+            <label class="block text-sm text-white/60 mb-2">Phone</label>
+            <input type="tel" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition" placeholder="0115...">
+          </div>
+          <div>
+            <label class="block text-sm text-white/60 mb-2">Interested In</label>
+            <select class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition">
+              <option>Foundation Membership</option>
+              <option>Performance Membership</option>
+              <option>Elite Membership</option>
+              <option>Personal Training Only</option>
+              <option>Just a Tour</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-gold w-full text-dark-900 font-semibold py-3.5 rounded-full mt-2">
+            Request Consultation
+          </button>
+          <p id="form-success" class="hidden text-center text-gold-500 text-sm mt-3">Thank you! We will contact you shortly.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-14 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
+        <div class="font-display text-xl tracking-widest gold-gradient">AURUM</div>
+        <div class="flex gap-8 text-sm text-white/50">
+          <a href="#home" class="hover:text-gold-500 transition">Home</a>
+          <a href="#about" class="hover:text-gold-500 transition">About</a>
+          <a href="#programs" class="hover:text-gold-500 transition">Programs</a>
+          <a href="#membership" class="hover:text-gold-500 transition">Membership</a>
+        </div>
+      </div>
+
+      <!-- Designer Credit - Portfolio -->
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div>
+            <p class="text-white/40 text-xs tracking-widest uppercase mb-2">Designed & Developed by</p>
+            <p class="font-display text-lg text-white">Ahmed Atallah</p>
+            <p class="text-white/50 text-sm mt-1">Web Designer & Frontend Developer</p>
+          </div>
+          <div class="text-sm text-white/50 space-y-1">
+            <p>
+              <a href="tel:+201158454153" class="hover:text-gold-500 transition">01158454153</a>
+            </p>
+            <p>
+              <a href="mailto:ahmed.atallah.ib@gmail.com" class="hover:text-gold-500 transition">ahmed.atallah.ib@gmail.com</a>
+            </p>
+          </div>
+          <div class="text-xs text-white/30 max-w-xs text-center md:text-right">
+            This is a portfolio demonstration project.<br>
+            © 2026 Ahmed Atallah. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Portfolio Badge -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <a href="mailto:ahmed.atallah.ib@gmail.com" 
+       class="flex items-center gap-2 bg-dark-800/95 border border-gold-500/40 text-gold-500 text-xs font-medium px-4 py-2.5 rounded-full shadow-lg backdrop-blur-md hover:bg-gold-500 hover:text-dark-900 transition-all duration-300">
+      <span class="w-2 h-2 bg-gold-500 rounded-full animate-pulse"></span>
+      Designed by Ahmed Atallah
+    </a>
+  </div>
+
+  <script>
+    // ===== Mobile Menu =====
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+
+    // ===== Animations =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
+
+    // Navbar border on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('border-white/10');
+      } else {
+        navbar.classList.remove('border-white/10');
+      }
+    });
+
+    // Contact form
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('form-success').classList.remove('hidden');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
